@@ -1,0 +1,26 @@
+NodeJS notes
+
+About NodeJS
+- a runtime environment for executing JavaScript code
+- Ideal for building highly-scalable, data-intensive and real-time applications
+- Great for prototyping and agile development
+- Superfast and highly scalable companies (build backends with less code and can increase request speed)
+- JavaScript everywhere (reuse JS skills)
+- Cleaner and more consistent code with JavaScript- Large ecosystem of open-source libs
+
+Architecture of Node
+- Ryan Dahl, embedded Chrome v8 engine in a C++ program and called in Node
+- There is no 'document' object; however, comes with objects like 'fs' for file system,'http' for listening, and network and file system
+    - these extra capabilities are not available inside browsers
+- "I prefer Node to C#" is fundamentally wrong - Node is NOT a programming language
+    - it's a runtime environment for executing JavaScript code
+
+How Node works
+- Asynchronous: non-blocking architecture (Node by default)
+- Synchronous: blocking architecture (how ASP.net and Rails work out of the box)
+- In Node we have a single thread to handle all requests - will move on from one client to the next without waiting for response from DB
+- When the DB prepares the result it puts the message in an 'Event Queue' 
+    - Node continually monitors this queue in the backgground, when it finds an event in this queue it will take it out and process it
+- Node is ideal for I/O-intensive apps (a lot of disk or network access) - able to serve more clients without need for more hardware
+- Do not use Node for CPU-intensive apps (video encoding or image manipulation)
+
