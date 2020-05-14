@@ -10,7 +10,7 @@ About NodeJS
 
 Architecture of Node
 - Ryan Dahl, embedded Chrome v8 engine in a C++ program and called in Node
-- There is no 'document' object; however, comes with objects like 'fs' for file system,'http' for listening, and network and file system
+- There is no 'document' object or 'window' object; however, comes with objects like 'fs' for file system,'http' for listening, and network and file system
     - these extra capabilities are not available inside browsers
 - "I prefer Node to C#" is fundamentally wrong - Node is NOT a programming language
     - it's a runtime environment for executing JavaScript code
@@ -23,4 +23,12 @@ How Node works
     - Node continually monitors this queue in the backgground, when it finds an event in this queue it will take it out and process it
 - Node is ideal for I/O-intensive apps (a lot of disk or network access) - able to serve more clients without need for more hardware
 - Do not use Node for CPU-intensive apps (video encoding or image manipulation)
+- We can write regular JavaScript, just like how we write for browsers
 
+Example:
+    $ node test-app.js
+
+
+Node Module System:
+
+- OS, fs, events, http
