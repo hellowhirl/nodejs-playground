@@ -10,3 +10,53 @@ const log = require("./logger"); // function to laad a module - only available i
 console.log(log); // we see '{ log: [Function: log] }', which means that we can call 'log' in this module
 // logger.log("hello"); // previous implementatoin when we were exporting an object from 'logger' module
 log("hello");
+
+////// Path
+
+const path = require("path"); // access the Path Module by passing 'path' as the argument to 'require'
+// nomrally Node assumes it is the built-in path module, otherwise it will look for existence of relative path to a file
+
+var pathObj = path.parse(__filename); // one of the useful methods in the Path Module
+// returns an object whose properties represent significant elements of the 'path'
+// if we want to work with paths then it's easier to use the Path Module as opposed to working with strings
+
+console.log(pathObj);
+
+////// OS
+const os = require("os");
+
+var totalMemory = os.totalmem();
+var freeMemory = os.freemem();
+
+console.log("Total Memory: " + totalMemory);
+console.log("Free Memory: " + freeMemory);
+
+////// File System
+const fs = require("fs"); // comes with both syncronous and asyncronous methods - but should only use asynchronous
+const files = fs.readdirSync("./"); // returns all files and folder in current directory as an array
+console.log(files);
+
+fs.readdir("./", function (err, files) {
+  if (err) console.log("Error!");
+  // an unrecognized file/directory of '$' will trigger this error clause
+  else console.log(files);
+}); // all these asynchrnous methods take a callback function as their last argument
+
+////// Events
+const EventEmitter = require("events"); // Pascal class indicates a Class
+const emitter = new EventEmitter();
+
+// Register a listener - order is important (listener comes before raising event)
+emitter.on("messageLogged", (arg) => {
+  // some people also use 'e', 'eventArg', etc.
+  console.log("listener called", arg); // we will see this in the console
+});
+
+// Raising an event here
+// 'emit' means making a noise (signaling something has happened)
+emitter.emit("messageLogged", { id: 1, url: "http://" }); // passing an event argument
+// this emitter iterates over all the registered event listeners and calls them synchronously
+
+////// Event Arguments
+// quite often when we raise an event we also want to send some data about that event
+// for example generating an id for a message, or it may give us a URL for accessing that message directly

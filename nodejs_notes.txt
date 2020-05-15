@@ -29,11 +29,6 @@ Example:
     $ node test-app.js
 
 
-Node Module System:
-
-- OS, fs, events, http
-
-
 Module Wrapper Function:
 
 - Node does not execute our code directly - it always wraps the code in each module with a function like:
@@ -43,3 +38,15 @@ Module Wrapper Function:
 
 - 'require' appears to be globally but actually it's not - it's local to each module
 - 'require' and others listed are arguments we pass to the function for our module
+
+
+Node Module System: (built-in modules in Node)
+
+- OS, File System, events, HTTP, Path, Process, Query Strings, Stream, etc. 
+- To work with files and directories in Node first we need to 'require' the 'fs' module and then use the File System Module method(s) - always prefer to use asynchronous methods
+
+Events
+- a lot of Node's core functionality is based on events
+- an event is a signal that incdicates that something has happened in our application
+- Example: listening for requests from an HTTP class on a given port, everytime we receive a request from that port that HTTP class raises an event - our job is to respond that event which involes reading that request and returning the right response
+
