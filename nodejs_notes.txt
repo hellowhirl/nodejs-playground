@@ -32,3 +32,14 @@ Example:
 Node Module System:
 
 - OS, fs, events, http
+
+
+Module Wrapper Function:
+
+- Node does not execute our code directly - it always wraps the code in each module with a function like:
+(function(exports, require, module, __filename, dirname) { 
+    <code inside module> 
+})
+
+- 'require' appears to be globally but actually it's not - it's local to each module
+- 'require' and others listed are arguments we pass to the function for our module
