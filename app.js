@@ -1,15 +1,15 @@
 /*jshint esversion: 6 */ // wow, this removes unncessary JSHint error about const
 
 // best practice is to use 'const' when loading a module
-const log = require("./logger"); // function to laad a module - only available in Node
+// const log = require("./logger"); // function to laad a module - only available in Node
 // require("./looger.js") // './' indicates current folder - Node auto adds .js extension, assuming it's a js file
 // require("./subFolder/logger"); // if the 'logger' module is in a subfolder
 
 // logger = 1; // with tools ike JSHint we can scan our JS code for errors
 
-console.log(log); // we see '{ log: [Function: log] }', which means that we can call 'log' in this module
+// console.log(log); // we see '{ log: [Function: log] }', which means that we can call 'log' in this module
 // logger.log("hello"); // previous implementatoin when we were exporting an object from 'logger' module
-log("hello");
+// log("hello");
 
 ////// Path
 
@@ -20,7 +20,7 @@ var pathObj = path.parse(__filename); // one of the useful methods in the Path M
 // returns an object whose properties represent significant elements of the 'path'
 // if we want to work with paths then it's easier to use the Path Module as opposed to working with strings
 
-console.log(pathObj);
+console.log("Path Object", pathObj);
 
 ////// OS
 const os = require("os");
@@ -34,28 +34,28 @@ console.log("Free Memory: " + freeMemory);
 ////// File System
 const fs = require("fs"); // comes with both syncronous and asyncronous methods - but should only use asynchronous
 const files = fs.readdirSync("./"); // returns all files and folder in current directory as an array
-console.log(files);
+console.log("File System", files);
 
 fs.readdir("./", function (err, files) {
   if (err) console.log("Error!");
   // an unrecognized file/directory of '$' will trigger this error clause
-  else console.log(files);
+  else console.log("readdir method from fs object", files);
 }); // all these asynchrnous methods take a callback function as their last argument
 
 ////// Events
+
 const EventEmitter = require("events"); // Pascal class indicates a Class
-const emitter = new EventEmitter();
+
+const Logger = require("./logger");
+const logger = new Logger();
 
 // Register a listener - order is important (listener comes before raising event)
-emitter.on("messageLogged", (arg) => {
+logger.on("messageLogged", (arg) => {
   // some people also use 'e', 'eventArg', etc.
   console.log("listener called", arg); // we will see this in the console
 });
 
-// Raising an event here
-// 'emit' means making a noise (signaling something has happened)
-emitter.emit("messageLogged", { id: 1, url: "http://" }); // passing an event argument
-// this emitter iterates over all the registered event listeners and calls them synchronously
+logger.log("a message"); // renamed from 'logger' to 'Logger' because it's a class
 
 ////// Event Arguments
 // quite often when we raise an event we also want to send some data about that event

@@ -50,3 +50,6 @@ Events
 - an event is a signal that incdicates that something has happened in our application
 - Example: listening for requests from an HTTP class on a given port, everytime we receive a request from that port that HTTP class raises an event - our job is to respond that event which involes reading that request and returning the right response
 
+- In summary: whenever we want to raise events in our application to signal that something has happened, we need to create a Class that extends EventEmitter. But we can also add additional functionality (like a 'log' method). Then whenever we want to raise an event we use 'this.emit' because it references the class being used, which is an extension of EventEmitter.
+- Then, in a separate module (like 'app.js') we will use an instance of the custom class we have defined that extends EventEmitter. And then we can use the '.on' method which will register an event listener
+
