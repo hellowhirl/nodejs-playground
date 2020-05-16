@@ -31,7 +31,7 @@ Example:
 
 Module Wrapper Function:
 
-- Node does not execute our code directly - it always wraps the code in each module with a function like:
+- Node does not execute our code directly - it always wraps the code in each module with an IIFE function like below to create scope:
 (function(exports, require, module, __filename, dirname) { 
     <code inside module> 
 })
@@ -46,10 +46,17 @@ Node Module System: (built-in modules in Node)
 - To work with files and directories in Node first we need to 'require' the 'fs' module and then use the File System Module method(s) - always prefer to use asynchronous methods
 
 Events
-- a lot of Node's core functionality is based on events
+- a lot of Node's core functionality is based on events (EventEmitter is the core class)
 - an event is a signal that incdicates that something has happened in our application
 - Example: listening for requests from an HTTP class on a given port, everytime we receive a request from that port that HTTP class raises an event - our job is to respond that event which involes reading that request and returning the right response
 
-- In summary: whenever we want to raise events in our application to signal that something has happened, we need to create a Class that extends EventEmitter. But we can also add additional functionality (like a 'log' method). Then whenever we want to raise an event we use 'this.emit' because it references the class being used, which is an extension of EventEmitter.
-- Then, in a separate module (like 'app.js') we will use an instance of the custom class we have defined that extends EventEmitter. And then we can use the '.on' method which will register an event listener
+- whenever we want to raise events in our application to signal that something has happened, we need to create a Class that extends EventEmitter. But we can also add additional functionality (like a 'log' method). Then whenever we want to raise an event we use 'this.emit' because it references the class being used, which is an extension of EventEmitter.
+- Then, in a separate module (like 'app.js') we will use an instance of the custom class we have defined that extends EventEmitter. And then we can use the '.on' method which will register an event listener.
 
+In summary: to create a class with the ability to raise events, we should extend EventEmitter: 
+class Logger extends EventEmitter { } 
+
+Http Module
+- used for creating networking applications
+- Several built-in classes in Node derive from EventEmitter like net.Server (which http.Server inherits from)
+- we use the Express framework to handle various routes, which givves our application a clean structure. Internally Epxress is built on top of the http module in Node
