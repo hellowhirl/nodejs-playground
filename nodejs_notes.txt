@@ -60,3 +60,15 @@ Http Module
 - used for creating networking applications
 - Several built-in classes in Node derive from EventEmitter like net.Server (which http.Server inherits from)
 - we use the Express framework to handle various routes, which givves our application a clean structure. Internally Epxress is built on top of the http module in Node
+
+NPM
+- for pretty much any kind of functionality there is most likely a free open source library available on NPM
+- when you install node you also get npm
+
+package.json
+- a bunch of metadata about your application (key/value pairs)
+- best practice: whenever you start a node project run '$ npm -init' to create 'package.json'
+- whenever we install a new package via npm it is inserted into 'package.json' under 'dependencies'
+- every node module has a 'package.json' file, just like our application
+- also we can see the name of this dev dependency under 'node_modules' folder
+- in later version of npm we don't need to supply the --save flag anymore, just '$ npm i library-name'
