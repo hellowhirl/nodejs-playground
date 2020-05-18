@@ -67,8 +67,40 @@ NPM
 
 package.json
 - a bunch of metadata about your application (key/value pairs)
-- best practice: whenever you start a node project run '$ npm -init' to create 'package.json'
+- best practice: whenever you start a node project you want to create a 'package.json'
+    $ npm init
+- answer all prompts with defaults
+    $ npm init --yes
 - whenever we install a new package via npm it is inserted into 'package.json' under 'dependencies'
 - every node module has a 'package.json' file, just like our application
 - also we can see the name of this dev dependency under 'node_modules' folder
-- in later version of npm we don't need to supply the --save flag anymore, just '$ npm i library-name'
+- in later version of npm we don't need to supply the --save flag anymore, just use: 
+    $ npm i library-name
+
+look at our package.json and download our dependencies from npm registry
+    $ npm i
+
+package-lock.json
+- created by npm when we installed an npm package (don't worry about this file, it's just for npm to do its job)
+
+- when we install an npm package we may get other libraries that it is dependent on as well
+- dependencies of one library used to be stored inside their own 'node_modules' folder (but this was a mess and didn't work for windows machines)
+- now ALL dependencies are stored under 'node_modules'
+- *Exception: if our dependency pacakges have a dependency that is different than others then it will be stored within the module's own 'node_modules'
+
+semantic versioning
+Example:
+"4.13.6" (1st, 2nd, 3rd) numbers
+
+1) major version: if adding a new feature that could potentially break the current version of mongooge, then the major version increases
+2) minor version: adding new features that don't break the API
+3) patch version: after fixing a bug and re-releasing, the number goes up
+^: as long as the major version is 4, we are interested in any version
+4.x: equal to ^4.13.6
+~1.8.3: as long as major and minor version are these numbers
+1.8.x: same as ~1.8.3
+
+See the version of all the packages (and their dependencies) installed in a tree graph
+    $ npm list
+See only depenedencies our our application
+    $ npm list --depth=0
