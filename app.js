@@ -50,6 +50,7 @@ const Logger = require("./logger");
 const logger = new Logger();
 
 // Register a listener - order is important (listener comes before raising event)
+// a listener is a function that will be called when that event is raised
 logger.on("messageLogged", (arg) => {
   // some people also use 'e', 'eventArg', etc.
   console.log("listener called", arg); // we will see this in the console

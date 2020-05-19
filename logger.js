@@ -12,7 +12,7 @@ class Logger extends EventEmitter {
   log(message) {
     // Send an HTTP request
     console.log(message);
-    // Raising an event here - should be in the logger module as it is the one signaling an event
+    // Raise an event here - should be in the logger module as it is the one signaling an event
     // 'emit' means making a noise (signaling something has happened)
     this.emit("messageLogged", { id: 1, url: "http://" }); // passing an event argument
     // this emitter iterates over all the registered event listeners and calls them synchronously
