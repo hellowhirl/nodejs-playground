@@ -104,3 +104,51 @@ See the version of all the packages (and their dependencies) installed in a tree
     $ npm list
 See only depenedencies our our application
     $ npm list --depth=0
+
+
+Viewing registry info for a package
+- use npm pages or below commands:
+    $ npm view mongoose
+
+- view only values of dependencies property:
+    $ npm view mongooge dependencies
+
+- view all the versions of a package released so far:
+    $ npm view mongoose versions
+
+
+Installing a Specific Version of a Package
+    $ npm i mongoose@2.4.2
+
+
+- find out what pacakges have been outdated and which are the new versions
+    $ npm outdated
+Package     Current Wanted  Latest  Location            Comment
+mongoose    5.9.14  5.9.18  5.9.18  nodejs_playground   If Latest is higher number then we can still use latest release for specificed major release
+underscore  1.4.0   1.10.2  1.10.2  nodejs_playground   Latest release for "5.x" is "5.9.18"
+
+- for updating minor and patch releases only
+    $ npm update
+
+- tool for checking latest dependency major version: npm-check-updates 
+    $ npm-check-updates
+- to update to latest major version
+    $ npm-check-updates -u  -OR-  $ ncu -u
+
+This will only update package.json. Still have to install dependency after with:
+    $ npm i
+
+
+Useful NPM commands are:
+
+// Install a package as a development dependency
+    $ npm i <packageName> —save-dev
+// Uninstall a package
+    $ npm un <packageName>
+// List installed packages 
+    $ npm list —depth=0
+
+// View outdated packages
+    $ npm outdated
+// Update packages 
+    $ npm update -To install/uninstall packages globally, use -g flag. 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "mongoose": "^5.9.14",
+    "mongoose": "^5.9.18",
     "underscore": "^1.10.2"
   },
   "devDependencies": {},
