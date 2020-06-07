@@ -139,12 +139,57 @@ This will only update package.json. Still have to install dependency after with:
     $ npm i
 
 
+DevDependencies
+- sometimes we only use a dependency for development purposes, they should not go into the prod environment. For example use:
+- JS Hint is a static analysis tool for JavaScript code - looks for potential problems or syntactical errors
+$ npm i jshint --save-dev
+
+- all dependencies are stored under npm_modules; they are only segregated in package.json
+
+
+Working with Global Packages
+- npm is a global tool, not specific to a given project
+- to install globally a specific version:
+    $ npm i -g npm@5.1.2
+- to update npm to latest version:
+    $ npm i -g npm
+- npm commands work globally as well like:
+    $ npm -g outdated
+
+
+Steps for publishing a package on npm
+
+1) create a project wihh a unique 'name' in package.json (e.g. "lion-lib-random123):
+    $ npm init --yes
+2) add an entry point file, 'index.js'
+3) 'export' some funciions
+4) login to npm (first create an account)
+    $ npm login
+5) publish package
+    $ npm publish
+6) now we can use in another node application
+    $ npm init --yes
+    $ npm i lion-lib-random123
+7) find indside 'node_modules'
+8) import the module in the code
+    var lion = require('lion-lib-random123');
+    var result = lion.add(1, 2);
+    console.log(result);
+
+Publish a new version of npm package after adding a new feature
+    $ npm versino major
+    $ npm versino minor
+    $ npm versino patch
+Then we can publish:
+    $ npm publish
+
+
 Useful NPM commands are:
 
 // Install a package as a development dependency
     $ npm i <packageName> —save-dev
 // Uninstall a package
-    $ npm un <packageName>
+    $ npm uninstall <packageName>  -OR-  $ npm un <packageName>
 // List installed packages 
     $ npm list —depth=0
 
