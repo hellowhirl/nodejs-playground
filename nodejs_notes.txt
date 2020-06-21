@@ -197,3 +197,36 @@ Useful NPM commands are:
     $ npm outdated
 // Update packages 
     $ npm update -To install/uninstall packages globally, use -g flag. 
+
+
+
+Building RESTful API's using Express
+
+Clietn ----------- Server
+(communication via HTTP)
+
+Server: exposes services that are accessible via HTTProtocol
+Rest: a convention for building HTTP services (CRUD: Create, Read, Update, Delete )
+
+RESTful Services
+
+https://vidly.com/api/customers
+- address can start with "http" or "https", but "https" is more secure
+- vidly.com: domain
+- /api: convention to expose RESTful services
+- /customers: collection of customers in our application (a resource)
+
+common HTTP methods:
+
+C
+POST /api/customers, { name: '' } (body of request includes customer object)
+
+R
+GET /api/customers
+GET /api/customers/id
+
+U
+PUT /api/customers/id, { name: '' } (body of request includes customer object)
+
+D
+DELETE /api/customers/1d
