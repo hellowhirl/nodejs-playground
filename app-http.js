@@ -2,8 +2,8 @@ const http = require("http");
 
 // here we are able to work with actual request or response objects, like url
 const server = http.createServer((request, response) => {
-  // note: this is not ideal for larger applications,because we don't want to hard code
-  // all these 'if statements' with different endpoints
+  // note: this is not ideal for larger applications, because we don't want to hard code
+  // all these 'if statements' with different endpoints and this is not maintainable
 
   if (request.url === "/") {
     response.write("Hello World");
