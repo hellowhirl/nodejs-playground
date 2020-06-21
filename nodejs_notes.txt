@@ -202,7 +202,7 @@ Useful NPM commands are:
 
 Building RESTful API's using Express
 
-Clietn ----------- Server
+Client ----------- Server
 (communication via HTTP)
 
 Server: exposes services that are accessible via HTTProtocol
@@ -233,3 +233,11 @@ DELETE /api/customers/1d
 
 
 Express: most popular framework for building web applications and web servers on top of node
+- define new routes by calling 'app.get()'
+- with this structure, as our applicatino grows we can move routes to different files
+- Express gives our application a skeleton (a structure)
+
+Nodemon: Node Monitor, will watch all files for changes
+    $ npm i -g nodemon
+Run below to watch files:
+    $ nodemon index.js
