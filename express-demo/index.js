@@ -7,7 +7,7 @@ const app = express(); // call this function to return an object of type 'Expres
 // this is how we define a route: specify a path/url,
 // and a callback function which is also called a 'route handler'
 app.get("/", (request, response) => {
-  response.send("Hello Worlds!!!");
+  response.send("Hello Mundo!!!");
 });
 
 app.get("/api/courses", (req, res) => {
@@ -15,5 +15,8 @@ app.get("/api/courses", (req, res) => {
   res.send([1, 2, 3]); // so here we instead simply return an array of numbers
 });
 
-app.listen(3000, () => console.log("listening on port 3000..."));
+// PORT - set environement variable with the 'process' object
+const port = process.env.PORT || 3000; // "PORT" is name of our environement variable; either use it or an arbitrary number
+
+app.listen(port, () => console.log(`listening on port ${port}...`));
 // optionally call a function when app starts to listen on a given port
