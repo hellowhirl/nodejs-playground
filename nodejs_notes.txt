@@ -234,7 +234,7 @@ DELETE /api/customers/1d
 
 Express: most popular framework for building web applications and web servers on top of node
 - define new routes by calling 'app.get()'
-- with this structure, as our applicatino grows we can move routes to different files
+- with this structure, as our applicatino grows we can move routes to different files (ex. courses.js)
 - Express gives our application a skeleton (a structure)
 
 Nodemon: Node Monitor, will watch all files for changes
