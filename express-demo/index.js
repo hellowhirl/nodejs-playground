@@ -15,6 +15,15 @@ app.get("/api/courses", (req, res) => {
   res.send([1, 2, 3]); // so here we instead simply return an array of numbers
 });
 
+app.get("/api/courses/:id", (req, res) => {
+  res.send(req.params.id);
+});
+
+app.get("/api/posts/:year/:month", (req, res) => {
+  // res.send(req.params); // how to view all parametrs passed
+  res.send(req.query); // viewing additional optional parameters (http://localhost:5000/api/posts/2018/3?sortBy=name)
+});
+
 // PORT - set environement variable with the 'process' object
 const port = process.env.PORT || 3000; // "PORT" is name of our environement variable; either use it or an arbitrary number
 

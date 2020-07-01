@@ -241,3 +241,11 @@ Nodemon: Node Monitor, will watch all files for changes
     $ npm i -g nodemon
 Run below to watch files:
     $ nodemon index.js
+
+
+Environment Variable:a variable that is part of the evnironement in which a process runs 
+
+For mac set environement variable in the terminal:
+    $ export PORT=5000
+
+- Route Parameters & Query parameters are stored in an object with key value pairs
