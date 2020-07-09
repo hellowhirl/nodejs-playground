@@ -248,4 +248,17 @@ Environment Variable:a variable that is part of the evnironement in which a proc
 For mac set environement variable in the terminal:
     $ export PORT=5000
 
+- Route paramters are used for required values
+    http://localhost:3000/api/posts/2018/1
+{
+  year: "2018",
+  month: "3"
+}
+
+- Whereas query string paramters are optional; they provide additional data to our backend services
+    http://localhost:5000/api/posts/2018/3?sortBy=name
+{
+  sortBy: "name"
+}
+
 - Route Parameters & Query parameters are stored in an object with key value pairs

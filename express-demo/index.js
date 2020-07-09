@@ -12,11 +12,14 @@ app.get("/", (request, response) => {
 
 app.get("/api/courses", (req, res) => {
   // in a real scenario here we want to get a list of courses from the database and return them
-  res.send([1, 2, 3]); // so here we instead simply return an array of numbers
+  // res.send([1, 2, 3]); // so here we instead simply return an array of numbers
+  res.send({ test: true }); // so here we instead simply return an array of numbers
 });
 
+// Route paramter :id
 app.get("/api/courses/:id", (req, res) => {
   res.send(req.params.id);
+  // example: http://localhost:3000/api/posts/2018/1
 });
 
 app.get("/api/posts/:year/:month", (req, res) => {
