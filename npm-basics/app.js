@@ -33,8 +33,8 @@ console.log("Free Memory: " + freeMemory);
 
 ////// File System
 const fs = require("fs"); // comes with both syncronous and asyncronous methods - but should only use asynchronous
-const files = fs.readdirSync("./"); // returns all files and folder in current directory as an array
-console.log("File System", files);
+const files = fs.readdirSync("./"); // here we are seeing the Synchronous method because it's easier to understand
+console.log("File System", files); // returns all files and folder in current directory as an array
 
 fs.readdir("./", function (err, files) {
   if (err) console.log("Error!");
