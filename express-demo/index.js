@@ -28,17 +28,12 @@ app.get("/api/courses", (req, res) => {
 });
 
 app.post("/api/courses", (req, res) => {
-  // new way to set schema in Joi
-  const schema = Joi.object({
-    name: Joi.string().min(3).required(),
-  });
+  // Validate
+  const { error } = validateCourse(req.body);
 
-  const result = schema.validate(req.body);
-  console.log(result);
-
-  // if (!req.body.name || req.body.name.length < 3) {
-  if (result.error) {
-    res.status(400).send(result.error.details[0].message); // 'result.error' object is too complex to send to the client
+  // If invalid, return 400 - Bad request
+  if (error) {
+    res.status(400).send(error.details[0].message); // 'result.error' object is too complex to send to the client
     return; // 'return' because we don't want the rest of the function to be executed
   }
 
@@ -49,6 +44,41 @@ app.post("/api/courses", (req, res) => {
   courses.push(course); // pushing to our array that we defined above
   res.send(course); // return this "course" object to the client because client most likely needs this data
 });
+
+app.put("/api/courses/:id", (req, res) => {
+  console.log(req.params);
+  debugger;
+  // Look up the course
+  // If not existing, return 404
+  const course = courses.find((c) => c.id === parseInt(req.params.id)); // will return a boolean value
+  if (!course)
+    res.status(404).send("The course with the given ID was not found");
+
+  // Validate
+  const { error } = validateCourse(req.body);
+
+  // If invalid, return 400 - Bad request
+  if (error) {
+    res.status(400).send(error.details[0].message); // 'result.error' object is too complex to send to the client
+    return; // 'return' because we don't want the rest of the function to be executed
+  }
+
+  // Update coures
+  course.name = req.body.name;
+
+  // Return the updated coures
+  res.send(course);
+});
+
+function validateCourse(course) {
+  // new way to set schema in Joi
+  const schema = Joi.object({
+    name: Joi.string().min(3).required(),
+  });
+
+  // const result = schema.validate(req.body);
+  return schema.validate(course); // no need to define constant
+}
 
 // Route paramter :id
 app.get("/api/courses/:id", (req, res) => {
