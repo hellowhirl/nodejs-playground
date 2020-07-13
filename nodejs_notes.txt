@@ -263,3 +263,10 @@ For mac set environement variable in the terminal:
 }
 
 - Route Parameters & Query parameters are stored in an object with key value pairs
+
+- We can test HTTP services using Postman
+http://localhost:3000/api/courses
+{
+	"name": "new course"
+}
+- As a security best practice we should never ever trust what the client sends us, we should always validate the input

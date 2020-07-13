@@ -1,3 +1,4 @@
+const Joi = require("@hapi/joi"); // a class is returned from this module so we should capitalize "Joi"
 const express = require("express"); // this returns a function
 const app = express(); // call this function to return an object of type 'Express'
 // The 'app' object conventionally denotes the Express application
@@ -16,7 +17,7 @@ const courses = [
 // this is how we define a route: specify a path/url,
 // and a callback function which is also called a 'route handler'
 app.get("/", (request, response) => {
-  response.send("Hello Mundo!!!");
+  response.send("Hola Mundo!!!");
 });
 
 app.get("/api/courses", (req, res) => {
@@ -27,6 +28,20 @@ app.get("/api/courses", (req, res) => {
 });
 
 app.post("/api/courses", (req, res) => {
+  // new way to set schema in Joi
+  const schema = Joi.object({
+    name: Joi.string().min(3).required(),
+  });
+
+  const result = schema.validate(req.body);
+  console.log(result);
+
+  // if (!req.body.name || req.body.name.length < 3) {
+  if (result.error) {
+    res.status(400).send(result.error.details[0].message); // 'result.error' object is too complex to send to the client
+    return; // 'return' because we don't want the rest of the function to be executed
+  }
+
   const course = {
     id: courses.length + 1, // because we are not using a DB here
     name: req.body.name, // we read this from 'body' of request - we assume there is a "name" property
