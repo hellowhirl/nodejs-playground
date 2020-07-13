@@ -16,7 +16,7 @@
 const path = require("path"); // access the Path Module by passing 'path' as the argument to 'require'
 // nomrally Node assumes it is the built-in path module, otherwise it will look for existence of relative path to a file
 
-var pathObj = path.parse(__filename); // one of the useful methods in the Path Module
+let pathObj = path.parse(__filename); // one of the useful methods in the Path Module
 // returns an object whose properties represent significant elements of the 'path'
 // if we want to work with paths then it's easier to use the Path Module as opposed to working with strings
 
