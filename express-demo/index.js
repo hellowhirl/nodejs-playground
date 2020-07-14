@@ -32,10 +32,7 @@ app.post("/api/courses", (req, res) => {
   const { error } = validateCourse(req.body);
 
   // If invalid, return 400 - Bad request
-  if (error) {
-    res.status(400).send(error.details[0].message); // 'result.error' object is too complex to send to the client
-    return; // 'return' because we don't want the rest of the function to be executed
-  }
+  if (error) return res.status(400).send(error.details[0].message); // 'result.error' object is too complex to send to the client
 
   const course = {
     id: courses.length + 1, // because we are not using a DB here
@@ -46,13 +43,12 @@ app.post("/api/courses", (req, res) => {
 });
 
 app.put("/api/courses/:id", (req, res) => {
-  console.log(req.params);
-  debugger;
   // Look up the course
   // If not existing, return 404
   const course = courses.find((c) => c.id === parseInt(req.params.id)); // will return a boolean value
   if (!course)
-    res.status(404).send("The course with the given ID was not found");
+    return res.status(404).send("The course with the given ID was not found");
+  // bug fix: exit this route handler otherwise rest of bottom code will be executed - more elegant
 
   // Validate
   const { error } = validateCourse(req.body);
@@ -67,6 +63,17 @@ app.put("/api/courses/:id", (req, res) => {
   course.name = req.body.name;
 
   // Return the updated coures
+  res.send(course);
+});
+
+app.delete("/api/courses/:id", (req, res) => {
+  const course = courses.find((c) => c.id === parseInt(req.params.id)); // will return a boolean value
+  if (!course)
+    return res.status(404).send("The course with the given ID was not found");
+
+  const index = courses.indexOf(course);
+  courses.splice(index, 1);
+
   res.send(course);
 });
 
@@ -88,7 +95,7 @@ app.get("/api/courses/:id", (req, res) => {
   //write some logic to look for the course with the given id
   const course = courses.find((c) => c.id === parseInt(req.params.id)); // will return a boolean value
   if (!course)
-    res.status(404).send("The course with the given ID was not found");
+    return res.status(404).send("The course with the given ID was not found");
   res.send(course);
 });
 
