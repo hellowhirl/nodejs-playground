@@ -1,3 +1,4 @@
+console.log('from "logger" module');
 console.log("__filename:", __filename); // represents complete path of file and includes file name
 console.log("__dirname: ", __dirname); // represents path to directory that contains the file
 // let's create a module for logging messages
@@ -31,3 +32,6 @@ module.exports = Logger; // setting 'exports' to a single function - then we can
 
 // below is implementation detail, so we don't want to export it to outside - keeps this module easy to use
 // module.exports.endPoint = url; // we can also rename to different name like 'endPoint'
+
+module.exports.log = log; // long form
+exports.log = log; // shortcut

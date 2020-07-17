@@ -44,9 +44,7 @@ fs.readdir("./", function (err, files) {
 
 ////// Events
 
-const EventEmitter = require("events"); // Pascal class indicates a Class
-
-const Logger = require("./logger");
+const Logger = require("./logger"); // in this module we are creating a Class that extends EventEmitter
 const logger = new Logger();
 
 // Register a listener - order is important (listener comes before raising event)
