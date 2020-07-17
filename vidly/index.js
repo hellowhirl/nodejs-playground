@@ -33,11 +33,11 @@ app.post("/vidly.com/api/genres", (req, res) => {
 });
 
 app.put("/vidly.com/api/genres/:id", (req, res) => {
-  const index = genres.includes(req.params.id);
-  if (!index) return res.send("Genre ID does not exist");
   if (!req.body.name) return res.status(404).send("Genre name is required");
 
   const genre = genres.find((genre) => genre.id === parseInt(req.params.id));
+
+  if (!genre) res.status(404).send("id does not exist");
 
   genre.name = req.body.name;
   console.log(req.body);
@@ -47,9 +47,9 @@ app.put("/vidly.com/api/genres/:id", (req, res) => {
 });
 
 app.delete("/vidly.com/api/genres/:id", (req, res) => {
-  if (!req.param.id) return res.status(404).send("Not a valid id");
-
   const genre = genres.find((genre) => genre.id === parseInt(req.params.id));
+
+  if (!genre) res.status(404).send("id does not exist");
 
   const index = genres.indexOf(genre);
   genres.splice(index, 1);
