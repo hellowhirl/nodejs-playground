@@ -20,7 +20,8 @@ app.get("/vidly.com/api/genres", (req, res) => {
 });
 
 app.post("/vidly.com/api/genres", (req, res) => {
-  console.log("incoming request:", req.body);
+  if (!req.body.name) return res.status(404).send("Genre name is required");
+
   const genre = {
     id: genres.length + 1,
     name: req.body.name,
@@ -29,32 +30,29 @@ app.post("/vidly.com/api/genres", (req, res) => {
   genres.push(genre);
 
   res.send(genre);
-  // const index = genres.indexOf(genre);
-  // if (!index) return res.send("Genre ID does not exist");
 });
 
 app.put("/vidly.com/api/genres/:id", (req, res) => {
+  const index = genres.includes(req.params.id);
+  if (!index) return res.send("Genre ID does not exist");
+  if (!req.body.name) return res.status(404).send("Genre name is required");
+
   const genre = genres.find((genre) => genre.id === parseInt(req.params.id));
 
-  // genre.id = req.params.id;
   genre.name = req.body.name;
   console.log(req.body);
   console.log(genre);
-
-  // genres[index].name = req.body.name;
-  // console.log(genres);
 
   res.send(genre);
 });
 
 app.delete("/vidly.com/api/genres/:id", (req, res) => {
+  if (!req.param.id) return res.status(404).send("Not a valid id");
+
   const genre = genres.find((genre) => genre.id === parseInt(req.params.id));
 
   const index = genres.indexOf(genre);
-  console.log("index", typeof index, index);
-  console.log(genres);
   genres.splice(index, 1);
-  console.log(genres);
 
   res.send(genres);
 });
