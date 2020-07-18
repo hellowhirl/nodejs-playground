@@ -3,8 +3,11 @@ NodeJS notes
 About NodeJS
 - a runtime environment for executing JavaScript code
 - Ideal for building highly-scalable, data-intensive and real-time applications
-- Great for prototyping and agile development
-- Superfast and highly scalable companies (build backends with less code and can increase request speed)
+- Superfast and highly scalable 
+    - companies build backends with less code
+    - increase number of requests served per second
+    - faster response time
+    - great for prototyping and agile development
 - JavaScript everywhere (reuse JS skills)
 - Cleaner and more consistent code with JavaScript
 - Large ecosystem of open-source libs

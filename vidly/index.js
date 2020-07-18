@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const port = 4000;
 
 app.use(express.json()); // adding a piece of middleware - then we use it in request processing pipeline
 
@@ -28,7 +27,6 @@ app.post("/vidly.com/api/genres", (req, res) => {
   };
 
   genres.push(genre);
-
   res.send(genre);
 });
 
@@ -57,4 +55,5 @@ app.delete("/vidly.com/api/genres/:id", (req, res) => {
   res.send(genres);
 });
 
+const port = process.env.port || 4000;
 app.listen(port, () => console.log(`Now listening on port ${port}`));
