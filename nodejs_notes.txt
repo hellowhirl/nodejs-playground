@@ -273,3 +273,26 @@ http://localhost:3000/api/courses
 	"name": "new course"
 }
 - As a security best practice we should never ever trust what the client sends us, we should always validate the input
+
+
+
+Express - Middleware
+
+- middleware function: a function that takes a request object and either returns a response to the client (thereby terminating the request/response cycle), or passes control to another middleware function.
+- in Express tecnically every route handler function is a middleware function
+- Examples: json(), aRouteHandler()
+
+- request processing pipeline: 
+
+Request -> middleware function(s)* => Response
+
+*middleware function(s) pass control to next middleware function
+
+we can perform cross-cutting concerns (logging, authentication, authorization, etc.)
+- an Express application is essentially nothing but a bunch of middleware functions
+
+
+
+Express - Configuration
+Express - Debugging
+Express - Templating Engines
