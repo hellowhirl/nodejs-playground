@@ -2,8 +2,6 @@ const express = require("express");
 const app = express();
 
 app.use(express.json()); // adding a piece of middleware - then we use it in request processing pipeline
-// reads the request andif there is a JSON object in body of request it will parse the body of the request into a JSON object,
-// then it will set the 'req.body' property
 
 const genres = [
   { id: 1, name: "Action" },

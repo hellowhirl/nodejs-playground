@@ -290,8 +290,8 @@ Request -> middleware function(s)* => Response
 
 we can perform cross-cutting concerns (logging, authentication, authorization, etc.)
 - an Express application is essentially nothing but a bunch of middleware functions
-
-
+- middleware functions are called in sequence
+- to laod a middlware function we call 'app.use()'
 
 Express - Configuration
 Express - Debugging

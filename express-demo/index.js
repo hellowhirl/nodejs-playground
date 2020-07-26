@@ -1,10 +1,17 @@
 const Joi = require("@hapi/joi"); // a class is returned from this module so we should capitalize "Joi"
+const { logger, authenticater } = require("./logger");
 const express = require("express"); // this returns a function
 const app = express(); // call this function to return an object of type 'Express'
 // The 'app' object conventionally denotes the Express application
 
 // be default this feature is not enabled in Express
-app.use(express.json()); // adding a piece of middleware - then we use it in request processing pipeline
+app.use(express.json()); // adding a piece of middleware - used in the request processing pipeline
+// reads the request and if there is a JSON object in body of request it will parse the body of the request into a JSON object,
+// then it will set the 'req.body' property
+
+// more middleware functions that called in sequence
+app.use(logger);
+app.use(authenticater);
 
 const courses = [
   { id: 1, name: "course1" },
