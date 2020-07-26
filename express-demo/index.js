@@ -1,6 +1,8 @@
 const Joi = require("@hapi/joi"); // a class is returned from this module so we should capitalize "Joi"
-const { logger, authenticater } = require("./logger");
+const customMiddleware = require("./logger"); // returns an object with our exported methods
 const express = require("express"); // this returns a function
+const helmet = require("helmet"); // this also returns a function
+const morgan = require("morgan");
 const app = express(); // call this function to return an object of type 'Express'
 // The 'app' object conventionally denotes the Express application
 
@@ -9,9 +11,16 @@ app.use(express.json()); // adding a piece of middleware - used in the request p
 // reads the request and if there is a JSON object in body of request it will parse the body of the request into a JSON object,
 // then it will set the 'req.body' property
 
+app.use(express.urlencoded({ extended: true })); // key=value&key=value (more of a traditional approach - HTML form with input fields)
+app.use(express.static("public")); // put all static files in folder we set "public", then we can serve static content
+
+app.use(helmet());
+app.use(morgan("tiny")); // option for minimal output (e.g. POST /api/courses 200 33 - 5.182 ms)
+
 // more middleware functions that called in sequence
-app.use(logger);
-app.use(authenticater);
+// app.use(function (req, res, next) {}); // custom middleware functions should be put in a separate module like below
+app.use(customMiddleware.logger);
+app.use(customMiddleware.authenticater);
 
 const courses = [
   { id: 1, name: "course1" },

@@ -282,16 +282,23 @@ Express - Middleware
 - in Express tecnically every route handler function is a middleware function
 - Examples: json(), aRouteHandler()
 
-- request processing pipeline: 
+
+::: Request processing pipeline :::
 
 Request -> middleware function(s)* => Response
 
-*middleware function(s) pass control to next middleware function
+*middleware function(s) pass control to next middleware function with 'next()'
+
+:::::::::::::::::::::::::::::::::::
 
 we can perform cross-cutting concerns (logging, authentication, authorization, etc.)
 - an Express application is essentially nothing but a bunch of middleware functions
 - middleware functions are called in sequence
 - to laod a middlware function we call 'app.use()'
+
+Third-Party Middleware - only use if you need it, because it will impact our request processing pipeline
+- helmet: best practice for securing that helps secure apps by setting various HTTP headers.
+- morgan: used to log http request every time we send a request to the server - can also be configured to write to a log file
 
 Express - Configuration
 Express - Debugging
