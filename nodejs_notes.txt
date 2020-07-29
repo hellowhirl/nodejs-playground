@@ -52,6 +52,7 @@ Node Module System: (built-in modules in Node)
 Events
 - a lot of Node's core functionality is based on events (EventEmitter a core class - a lot of other classes are based on EventEmitter)
 - an event is a signal that incdicates that something has happened in our application
+- 'emit' means making a noise (signaling something has happened)
 - Example: listening for requests from an HTTP class on a given port, everytime we receive a request from that port that HTTP class raises an event - our job is to respond that event which involves reading that request and returning the right response
 
 - whenever we want to raise events in our application to signal that something has happened, we need to create a Class that extends EventEmitter. But we can also add additional functionality (like a 'log' method). Then whenever we want to raise an event we use 'this.emit' because it references the class being used, which is an extension of EventEmitter.

@@ -9,14 +9,15 @@ const EventEmitter = require("events"); // Pascal class indicates a Class
 
 var url = "http://fakelogger.io/log"; // imagine we will send http request to this endpoint
 
+// here we create class that has all the capabilities of EventEmitter and additional capabilities defined by us
 class Logger extends EventEmitter {
   log(message) {
     // Send an HTTP request
     console.log(message);
 
     // Raise an event here - should be in the logger module as it is the one signaling an event
-    // 'emit' means making a noise (signaling something has happened)
-    this.emit("messageLogged", { id: 1, url: "http://" }); // passing an event argument
+    // here we use 'this' because we are using funcitonality from EventEmitter
+    this.emit("messageLogged", { id: 1, url: "http://whatever" }); // passing an event argument
     // this emitter iterates over all the registered event listeners and calls them synchronously
   }
 }
@@ -33,5 +34,5 @@ module.exports = Logger; // setting 'exports' to a single function - then we can
 // below is implementation detail, so we don't want to export it to outside - keeps this module easy to use
 // module.exports.endPoint = url; // we can also rename to different name like 'endPoint'
 
-module.exports.log = log; // long form
-exports.log = log; // shortcut
+// module.exports.log = log; // exports as an object, useful if we have multiple properties/methods
+// exports.log = log; // shorter syntax for exporting a single function

@@ -13,7 +13,7 @@ console.log("example");
 // setInterval(); // used to repetively call a function after a given delay
 // clearInterval(); // stop that function from being called repetitively
 
-console.log("X"); // in browser JS engine will prefix this window.console.log('X') - because that's where this object is defined
+console.log("X"); // in browser JS engine will prefix this with window.console.log('X') - because that's where this object is defined
 
 var message = ""; // similarly in browser this is prefixed as window.message - and it is added to the global scope by default
 
@@ -21,7 +21,7 @@ var message = ""; // similarly in browser this is prefixed as window.message - a
 // however, variables and functions we define here are not added to the global object
 console.log(global.message); // so will return 'undefined', because it is only scoped to this file
 
-// in order to build reliable and maintainable applications we should avoide defining variables and functions in global scope
+// in order to build reliable and maintainable applications we should avoid defining variables and functions in global scope
 // instead we use modularity with modules (like building blocks)
 // this will prevent two variables or functions with same names overriding somewhere else
 
@@ -29,4 +29,4 @@ console.log(global.message); // so will return 'undefined', because it is only s
 // if you want to use those members outside of the module, you need to export it to make it public
 
 // every Node application has at least one file(module) which we call the 'Main Module' - like 'app.js'
-console.log(module); // returns a JSON object for Module with properties like a unique 'id', filename, etc.
+console.log(module); // returns a JSON object for Module with properties like 'id', filename, etc.

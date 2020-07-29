@@ -16,7 +16,7 @@ const server = http.createServer((request, response) => {
   }
 }); // this 'server' object is an event emitter
 
-// low lever operation we won't be using in real world
+// low level operation we won't be using in real world
 // server.on("connection", (socket) => {
 //   console.log("new connection");
 // });
