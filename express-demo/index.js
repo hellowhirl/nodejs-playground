@@ -6,6 +6,11 @@ const morgan = require("morgan");
 const app = express(); // call this function to return an object of type 'Express'
 // The 'app' object conventionally denotes the Express application
 
+// The 'process' object is global in Node and it gives access to the current process
+// 'process' has a property called 'env' which gives us environment variables. A standard onne is 'NODE_ENV'
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`); // if not set will return 'undefined'
+console.log(`app: ${app.get("env")}`); // 'app.get' can be used to get various settings about this application - returns 'development' by default
+
 // be default this feature is not enabled in Express
 app.use(express.json()); // adding a piece of middleware - used in the request processing pipeline
 // reads the request and if there is a JSON object in body of request it will parse the body of the request into a JSON object,
@@ -15,7 +20,11 @@ app.use(express.urlencoded({ extended: true })); // key=value&key=value (more of
 app.use(express.static("public")); // put all static files in folder we set "public", then we can serve static content
 
 app.use(helmet());
-app.use(morgan("tiny")); // option for minimal output (e.g. POST /api/courses 200 33 - 5.182 ms)
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("tiny")); // option for minimal output (e.g. POST /api/courses 200 33 - 5.182 ms)
+  console.log("running morgan..."); // will only show on 'development' environment
+}
 
 // more middleware functions that called in sequence
 // app.use(function (req, res, next) {}); // custom middleware functions should be put in a separate module like below

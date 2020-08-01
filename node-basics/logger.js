@@ -35,4 +35,4 @@ module.exports = Logger; // setting 'exports' to a single function - then we can
 // module.exports.endPoint = url; // we can also rename to different name like 'endPoint'
 
 // module.exports.log = log; // exports as an object, useful if we have multiple properties/methods
-// exports.log = log; // shorter syntax for exporting a single function
+// module.exports = log; // shorter syntax for exporting a single function

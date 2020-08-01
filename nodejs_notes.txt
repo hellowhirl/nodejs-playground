@@ -304,3 +304,9 @@ Third-Party Middleware - only use if you need it, because it will impact our req
 Express - Configuration
 Express - Debugging
 Express - Templating Engines
+
+
+- When using environment variabesl we can work with 'process.env.NODE_ENV' or 'app.get("env")'
+- Setting environment variable from the terminal
+
+    $ export NODE_ENV=production
