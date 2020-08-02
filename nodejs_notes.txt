@@ -248,9 +248,9 @@ Run below to watch files:
     $ nodemon index.js
 
 
-Environment Variable:a variable that is part of the evnironement in which a process runs 
+Environment Variable: a variable that is part of the environment in which a process runs 
 
-For mac set environement variable in the terminal:
+For Mac set environment variable in the terminal:
     $ export PORT=5000
 
 - Route paramters are used for required values
@@ -326,3 +326,20 @@ Configuration
 
 - Make sure this is spelled properly "custom-environment-variables.json" - goes in our config folder
     - In this file we define the mapping of configuration settings to environment variables
+
+
+Debugging - a better way
+
+- Instead of 'console.log()' it is better to use the 'debug' package in Node
+- Control these log messages (enable or disable) from the outside using an environment variable
+- We can also determine the level of debugging information we want to see (for example only database logs)
+- Set an environment variable:
+    $ export DEBUG=app:startup
+- When we don't want to see any debugging info we can reset environment variable:
+    $ export DEBUG=
+- to see debugging messages from multiple namespaces
+    $ export DEBUG=app:startup,app:db
+    $ export DEBUG=app:*
+- we can also set the environment variable at time of running our application and run appication at the same time (shortcut)
+    $ DEBUG=app:db nodemon index.js
+- we can rename variable for "startupDebugger" to just "debug" if we are only testing for the application startup

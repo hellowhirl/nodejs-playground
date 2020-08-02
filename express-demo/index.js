@@ -1,3 +1,5 @@
+const startupDebugger = require("debug")("app:startup"); // require("debut") returns a function, so we pass an argument, an arbitrary namespace that we define for debugging
+const dbDebugger = require("debug")("app:db");
 const config = require("config");
 const Joi = require("@hapi/joi"); // a class is returned from this module so we should capitalize "Joi"
 const customMiddleware = require("./logger"); // returns an object with our exported methods
@@ -28,10 +30,16 @@ app.use(express.static("public")); // put all static files in folder we set "pub
 
 app.use(helmet());
 
-if (process.env.NODE_ENV === "development") {
+if (app.get("env") === "development") {
+  // if (process.env.NODE_ENV === "development") { // whichever we use is our preference
   app.use(morgan("tiny")); // option for minimal output (e.g. POST /api/courses 200 33 - 5.182 ms)
-  console.log("Morgan enabled..."); // will only show on 'development' environment
+  startupDebugger("Morgan enabled..."); // will only show on 'development' environment
+  // replaced 'console.log()' with "startupDebugger()"
 }
+
+// DB work...
+
+dbDebugger("Connected to the Database..."); // separation of concerns
 
 // more middleware functions that called in sequence
 // app.use(function (req, res, next) {}); // custom middleware functions should be put in a separate module like below
