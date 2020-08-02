@@ -1,3 +1,4 @@
+const config = require("config");
 const Joi = require("@hapi/joi"); // a class is returned from this module so we should capitalize "Joi"
 const customMiddleware = require("./logger"); // returns an object with our exported methods
 const express = require("express"); // this returns a function
@@ -5,6 +6,12 @@ const helmet = require("helmet"); // this also returns a function
 const morgan = require("morgan");
 const app = express(); // call this function to return an object of type 'Express'
 // The 'app' object conventionally denotes the Express application
+
+// Configuration
+console.log("Application Name: " + config.get("name"));
+console.log("Mail Server: " + config.get("mail.host"));
+console.log("Example Mail Password: " + config.get("mail.password"));
+// 'config.get' looks at various sources to find a value above configuration (josn, env variable, commnad line arg, etc.)
 
 // The 'process' object is global in Node and it gives access to the current process
 // 'process' has a property called 'env' which gives us environment variables. A standard onne is 'NODE_ENV'
@@ -23,7 +30,7 @@ app.use(helmet());
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("tiny")); // option for minimal output (e.g. POST /api/courses 200 33 - 5.182 ms)
-  console.log("running morgan..."); // will only show on 'development' environment
+  console.log("Morgan enabled..."); // will only show on 'development' environment
 }
 
 // more middleware functions that called in sequence

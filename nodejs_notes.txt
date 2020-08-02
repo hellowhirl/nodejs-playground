@@ -310,3 +310,19 @@ Express - Templating Engines
 - Setting environment variable from the terminal
 
     $ export NODE_ENV=production
+
+- we can see all our environment variables with:
+
+    console.log(process.env)
+
+
+Configuration
+
+- We can store configuration settings for our application with below package
+    $ npm i config
+- Should not store application secrets (passwords) in these config files
+- Instead we should store in Environment Variables
+    - Manually set environment variables from the command line and then read them using our config module
+
+- Make sure this is spelled properly "custom-environment-variables.json" - goes in our config folder
+    - In this file we define the mapping of configuration settings to environment variables
