@@ -49,11 +49,13 @@ const logger = new Logger();
 
 // Register a listener - order is important (listener comes before raising event)
 // a listener is a function that will be called when that event is raised
-logger.on("messageLogged", (arg) => {
+// exact same as 'addListener'
+logger.on("messageLogged", (eventArg) => {
   // some people also use 'e', 'eventArg', etc.
-  console.log("======== listener called ========", arg); // we will see this in the console
+  console.log("======== listener called ========", eventArg); // we will see this in the console
 });
 
+// Raising an event through "logger" instance we created
 logger.log("a message"); // renamed from 'logger' to 'Logger' because it's a class
 
 ////// Event Arguments

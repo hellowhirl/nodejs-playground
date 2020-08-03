@@ -25,11 +25,10 @@ class Logger extends EventEmitter {
 // anything we add to 'exports' will be available outside this module
 
 // module.exports.log = log; // for exporting an object from this module - useful for exporting multiple methods & properties
-// exports.log = log; // 'exports' is shortcut for 'module.exports'
+// exports.log = log; // 'exports' is shortcut for 'module.exports' - it's an argument passed in our Module Wrapper Function
 
-module.exports = Logger; // setting 'exports' to a single function - then we can call it directly
-
-// exports = log; // can't do this because because 'exports' is a reference to 'module.exports'
+module.exports = Logger; // setting 'exports' to a single function or Class - then we can call it directly
+// *** exports = Logger; // can't do this because because 'exports' is a reference to 'module.exports'
 
 // below is implementation detail, so we don't want to export it to outside - keeps this module easy to use
 // module.exports.endPoint = url; // we can also rename to different name like 'endPoint'
