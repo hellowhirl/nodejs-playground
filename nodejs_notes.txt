@@ -107,7 +107,7 @@ Example:
 
 See the version of all the packages (and their dependencies) installed in a tree graph
     $ npm list
-See only depenedencies our our application
+See only depenedencies of our application
     $ npm list --depth=0
 
 
@@ -128,6 +128,7 @@ Installing a Specific Version of a Package
 
 - find out what pacakges have been outdated and which are the new versions
     $ npm outdated
+
 Package     Current Wanted  Latest  Location            Comment
 mongoose    5.9.14  5.9.18  5.9.18  nodejs_playground   If Latest is higher number then we can still use latest release for specificed major release
 underscore  1.4.0   1.10.2  1.10.2  nodejs_playground   Latest release for "5.x" is "5.9.18"
@@ -145,9 +146,10 @@ This will only update package.json. Still have to install dependency after with:
 
 
 DevDependencies
-- sometimes we only use a dependency for development purposes, they should not go into the prod environment. For example use:
+- sometimes we only use a dependency for development purposes, they should not go into the prod environment. Should use --save-dev
 - JS Hint is a static analysis tool for JavaScript code - looks for potential problems or syntactical errors
-$ npm i jshint --save-dev
+
+    $ npm i jshint --save-dev
 
 - all dependencies are stored under npm_modules; they are only segregated in package.json
 
@@ -182,26 +184,19 @@ Steps for publishing a package on npm
     console.log(result);
 
 Publish a new version of npm package after adding a new feature
-    $ npm versino major
-    $ npm versino minor
-    $ npm versino patch
+    $ npm version major
+    $ npm version minor
+    $ npm version patch
 Then we can publish:
     $ npm publish
 
 
-Useful NPM commands are:
+Other useful NPM commands are:
 
 // Install a package as a development dependency
-    $ npm i <packageName> —save-dev
+    $ npm i <packageName> --save-dev
 // Uninstall a package
     $ npm uninstall <packageName>  -OR-  $ npm un <packageName>
-// List installed packages 
-    $ npm list —depth=0
-
-// View outdated packages
-    $ npm outdated
-// Update packages 
-    $ npm update -To install/uninstall packages globally, use -g flag. 
 
 
 
