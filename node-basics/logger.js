@@ -13,7 +13,7 @@ var url = "http://fakelogger.io/log"; // imagine we will send http request to th
 class Logger extends EventEmitter {
   log(message) {
     // Send an HTTP request
-    console.log(message);
+    console.log("other message", message);
 
     // Raise an event here - should be in the logger module as it is the one signaling an event
     // here we use 'this' because we are using funcitonality from EventEmitter
