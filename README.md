@@ -1,5 +1,7 @@
 # NodeJS Notes
 
+## Overview
+
 ### About NodeJS
 
 - a runtime environment for executing JavaScript code
@@ -16,7 +18,7 @@
 ### Architecture of Node
 
 - Ryan Dahl, embedded Chrome v8 engine in a C++ program and called it Node
-- There is no 'document' object or 'window' object; however, comes with objects like 'fs' for file system, 'http' for listening for requests, and network
+- There is no 'document' object or 'window' object; however, comes with objects like `fs` for file system, `http` for listening for requests, and `network`
   - these extra capabilities are not available inside browsers
 - "I prefer Node to C#" is fundamentally wrong - Node is NOT a programming language
   - it's a runtime environment for executing JavaScript code
@@ -24,183 +26,296 @@
 ### How Node works
 
 - Asynchronous: non-blocking architecture (Node by default)
-- Synchronous: blocking architecture (how ASP.net and Rails work out of the box)
+- Synchronous: blocking architecture (how ASP(dot)net and Rails work out of the box)
 - In Node we have a single thread to handle all requests - will move on from one client to the next without waiting for response from DB
-- When the DB prepares the result it puts the message in an 'Event Queue'
+- When the DB prepares the result it puts the message in an `Event Queue`
   - Node continually monitors this queue in the backgground, when it finds an event in this queue it will take it out and process it
 - Node is ideal for I/O-intensive apps (a lot of disk or network access) - able to serve more clients without need for more hardware
 - Do not use Node for CPU-intensive apps (video encoding or image manipulation)
 - We can write regular JavaScript, just like how we write for browsers
 
 Example:
+
+```
 $ node test-app.js
+```
 
 Module Wrapper Function:
 
 - Node does not execute our code directly - it always wraps the code in each module with an IIFE function like below to create scope:
-  (function(exports, require, module, \_\_filename, dirname) {
-  //<code inside module>
-  })
 
-- 'require' appears to be globally but actually it's not - it's local to each module
-- 'require' is one of the arguments we pass to the Module Wrapper Function that wraps our module
+  ```js
+  (function (exports, require, module, pathAndfilename, dirname) {
+    //<code inside module>
+  });
+  ```
 
-Node Module System: (built-in modules in Node)
+- `require` appears to be globally but actually it's not - it's local to each module
+  - it is one of the arguments we pass to the Module Wrapper Function that wraps our module
 
-- OS, File System, events, HTTP, Path, Process, Query Strings, Stream, etc.
-- To work with files and directories in Node first we need to 'require' the 'fs' module and then use the File System Module method(s) - always prefer to use asynchronous methods
+## Node Module System:
 
-Events
+- Built-in modules in Node:
+  - OS, File System, events, HTTP, Path, Process, Query Strings, Stream, etc.
+- To work with files and directories in Node first we need to `require` the `fs` module and then use the File System Module method(s)
+  - always prefer to use asynchronous methods
 
-- a lot of Node's core functionality is based on events (EventEmitter a core class - a lot of other classes are based on EventEmitter)
-- an event is a signal that incdicates that something has happened in our application
-- 'emit' means making a noise (signaling something has happened)
-- Example: listening for requests from an HTTP class on a given port, everytime we receive a request from that port that HTTP class raises an event - our job is to respond that event which involves reading that request and returning the right response
+### Events
 
-- whenever we want to raise events in our application to signal that something has happened, we need to create a Class that extends EventEmitter. But we can also add additional functionality (like a 'log' method). Then whenever we want to raise an event we use 'this.emit' because it references the class being used, which is an extension of EventEmitter.
-- Then, in a separate module (like 'app.js') we will use an instance of the custom class we have defined that extends EventEmitter. And then we can use the '.on' method which will register an event listener.
+- a lot of Node's core functionality is based on events (`EventEmitter` a core class - a lot of other classes are based on EventEmitter)
+- an `event` is a signal that incdicates that something has happened in our application
+- `emit` means making a noise (signaling something has happened)
+- Example: listening for requests from an HTTP class on a given port, everytime we receive a request from that port that HTTP class raises an event
+  - our job is to respond that event which involves reading that request and returning the right response
+- whenever we want to raise events in our application to signal that something has happened, we need to create a Class that extends EventEmitter.
+  - We can also add additional functionality (like a 'log' method). Then whenever we want to raise an event we use `this.emit` because it references the class being used, which is an extension of EventEmitter.
+- Then, in a separate module (like 'app.js') we will use an instance of the custom class we have defined that extends EventEmitter.
+  - We can then use the `.on` method which will register an event listener.
 
 In summary: to create a class with the ability to raise events, we should extend EventEmitter:
-class Logger extends EventEmitter { }
 
-Http Module
+```js
+class Logger extends EventEmitter {}
+```
+
+### Http Module
 
 - used for creating networking applications
-- Several built-in classes in Node derive from EventEmitter like net.Server (which http.Server inherits from)
-- we use the Express framework to handle various routes, which givves our application a clean structure. Internally Epxress is built on top of the http module in Node
+- Several built-in classes in Node derive from EventEmitter like `net.Server` (which http.Server inherits from)
+- we use the Express framework to handle various routes, which givves our application a clean structure.
+- Internally Epxress is built on top of the http module in Node
 
-NPM
+## Node Package Manager (NPM)
 
 - for pretty much any kind of functionality there is most likely a free open source library available on NPM
 - when you install node you also get npm
 
-package.json
+### package.json
 
 - a bunch of metadata about your application (key/value pairs)
 - best practice: whenever you start a node project you want to create a 'package.json'
-  $ npm init
+
+```
+$ npm init
+```
+
 - answer all prompts with defaults
-  $ npm init --yes
-- whenever we install a new package via npm it is inserted into 'package.json' under 'dependencies'
-- every node module has a 'package.json' file, just like our application
-- also we can see the name of this dev dependency under 'node_modules' folder
-- in later version of npm we don't need to supply the --save flag anymore, just use:
-  $ npm i library-name
 
-look at our package.json and download our dependencies from npm registry
+```
+$ npm init --yes
+```
+
+- whenever we install a new package via npm it is inserted into `package.json` under `dependencies`
+  - every node module has this file, just like our application
+- also we can see the name of this dev dependency under `node_modules` folder
+- in later versions of npm we don't need to supply the --save flag anymore, just use:
+
+```
+$ npm i library-name
+```
+
+this command looks at our package.json and downloads our dependencies from npm registry
+
+```
 $ npm i
+```
 
-package-lock.json
-
-- created by npm when we installed an npm package (don't worry about this file, it's just for npm to do its job)
-
+- `package-lock.json` is created by npm when we installed an npm package (don't worry about this file, it's just for npm to do its job)
 - when we install an npm package we may get other libraries that it is dependent on as well
-- dependencies of one library used to be stored inside their own 'node_modules' folder (but this was a mess and didn't work for windows machines)
-- now ALL dependencies are stored under 'node_modules'
-- \*Exception: if our dependency pacakges have a dependency that is different than others then it will be stored within the module's own 'node_modules'
+- dependencies of one library used to be stored inside their own node_modules folder (but this was a mess and didn't work for windows machines)
+- now ALL dependencies are stored under node_modules\*
+  - \*Exception: if our dependency pacakges have a dependency that is different than others then it will be stored within the module's own 'node_modules'
 
-semantic versioning
-Example:
+### Semantic Versioning
+
+```
 "4.13.6" (1st, 2nd, 3rd) numbers
+```
 
 1. major version: if adding a new feature that could potentially break the current version of mongooge, then the major version increases
 2. minor version: adding new features that don't break the API
 3. patch version: after fixing a bug and re-releasing, the number goes up
-   ^: as long as the major version is 4, we are interested in any version
-   4.x: equal to ^4.13.6
-   ~1.8.3: as long as major and minor version are these numbers
-   1.8.x: same as ~1.8.3
+
+- `-^`: as long as the major version is 4, we are interested in any version
+- `4.x`: equal to ^4.13.6
+- `~1.8.3`: as long as major and minor version are these numbers
+- `1.8.x`: same as ~1.8.3
 
 See the version of all the packages (and their dependencies) installed in a tree graph
+
+```
 $ npm list
+```
+
 See only depenedencies of our application
+
+```
 $ npm list --depth=0
+```
 
-Viewing registry info for a package
+### Viewing registry info for a package
 
-- use npm pages or below commands:
-  $ npm view mongoose
+We can either use npm pages or below commands to view registry info:
 
-- view only values of dependencies property:
-  $ npm view mongooge dependencies
+```
+$ npm view mongoose
+```
 
-- view all the versions of a package released so far:
-  $ npm view mongoose versions
+View only values of dependencies property:
+
+```
+$ npm view mongooge dependencies
+```
+
+View all the versions of a package released so far:
+
+```
+$ npm view mongoose versions
+```
 
 Installing a Specific Version of a Package
+
+```
 $ npm i mongoose@2.4.2
+```
 
-- find out what pacakges have been outdated and which are the new versions
-  $ npm outdated
+Find out what pacakges have been outdated and which are the new versions, produces below table:
 
-Package Current Wanted Latest Location Comment
-mongoose 5.9.14 5.9.18 5.9.18 nodejs_playground If Latest is higher number then we can still use latest release for specificed major release
-underscore 1.4.0 1.10.2 1.10.2 nodejs_playground Latest release for "5.x" is "5.9.18"
+```
+$ npm outdated
+```
 
-- for updating minor and patch releases only
-  $ npm update
+| Package    | Current | Wanted | Latest | Location          | my explanation comment                                                                       |
+| :--------- | :-----: | -----: | ------ | ----------------- | -------------------------------------------------------------------------------------------- |
+| mongoose   | 5.9.14  | 5.9.18 | 5.9.18 | nodejs_playground | If Latest is higher number then we can still use latest release for specificed major release |
+| underscore |  1.4.0  | 1.10.2 | 1.10.2 | nodejs playground | Latest release for "5.x" is "5.9.18"                                                         |
 
-- tool for checking latest dependency major version: npm-check-updates
-  $ npm-check-updates
-- to update to latest major version
-  $ npm-check-updates -u -OR- $ ncu -u
+For updating minor and patch releases only
 
-This will only update package.json. Still have to install dependency after with:
+```
+$ npm update
+```
+
+Tool for checking latest dependency major version: npm-check-updates
+
+```
+$ npm-check-updates
+```
+
+To update to latest major version
+
+```
+$ npm-check-updates -u
+-OR-
+$ ncu -u
+```
+
+This will only update package.json. We still have to install dependencies after with:
+
+```
 $ npm i
+```
 
-DevDependencies
+### DevDependencies
 
-- sometimes we only use a dependency for development purposes, they should not go into the prod environment. Should use --save-dev
-- JS Hint is a static analysis tool for JavaScript code - looks for potential problems or syntactical errors
+- sometimes we only use a dependency for development purposes
+  - these dependencies should not go into the prod environment. Insteadd we should use `--save-dev`
 
-  $ npm i jshint --save-dev
+JS Hint is a static analysis tool for JavaScript code - looks for potential problems or syntactical errors
+
+```
+$ npm i jshint --save-dev
+```
 
 - all dependencies are stored under npm_modules; they are only segregated in package.json
 
-Working with Global Packages
+### Working with Global Packages
 
-- npm is a global tool, not specific to a given project
-- to install globally a specific version:
-  $ npm i -g npm@5.1.2
-- to update npm to latest version:
-  $ npm i -g npm
-- npm commands work globally as well like:
-  $ npm -g outdated
+Npm is a global tool that is not specific to any given project. To install a specific version globally:
 
-Steps for publishing a package on npm
+```
+$ npm i -g npm@5.1.2
+```
+
+to update npm to latest version:
+
+```
+$ npm i -g npm
+```
+
+npm commands work globally as well like:
+
+```
+$ npm -g outdated
+```
+
+### Steps for publishing a package on npm
 
 1. create a project wihh a unique 'name' in package.json (e.g. "lion-lib-random123):
-   $ npm init --yes
+
+```
+$ npm init --yes
+```
+
 2. add an entry point file, 'index.js'
 3. 'export' some funciions
 4. login to npm (first create an account)
-   $ npm login
+
+```
+$ npm login
+```
+
 5. publish package
-   $ npm publish
+
+```
+$ npm publish
+```
+
 6. now we can use in another node application
-   $ npm init --yes
-   $ npm i lion-lib-random123
+
+```
+$ npm init --yes
+$ npm i lion-lib-random123
+```
+
 7. find indside 'node_modules'
 8. import the module in the code
-   var lion = require('lion-lib-random123');
-   var result = lion.add(1, 2);
-   console.log(result);
 
-Publish a new version of npm package after adding a new feature
+```js
+var lion = require("lion-lib-random123");
+var result = lion.add(1, 2);
+console.log(result);
+```
+
+### Updating a Published Pacakage
+
+Publish a new version of npm package after, depending on work that was done (eg. adding a new feature)
+
+```
 $ npm version major
 $ npm version minor
 $ npm version patch
+```
+
 Then we can publish:
+
+```
 $ npm publish
+```
 
-Other useful NPM commands are:
+### Other useful NPM commands
 
-// Install a package as a development dependency
+Install a package as a development dependency
+
+```
 $ npm i <packageName> --save-dev
-// Uninstall a package
-$ npm uninstall <packageName> -OR- $ npm un <packageName>
+```
 
-//// STOP HERE ////
+Uninstall a package
+
+```
+$ npm uninstall <packageName> -OR- $ npm un <packageName>
+```
 
 Building RESTful API's using Express
 
